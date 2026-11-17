@@ -35,7 +35,7 @@ typedef char GATENUMBER[4];
 static GATEGAMES sgatShown = { 0 };
 static GATEGAMES sgatGames = { 0 };
 static GATEINFONAME sgszInfoName = { 0 };
-static DWORD sgadw10045738[2] = { 0 };
+static DWORD PLACEHOLDER_UnreferencedData_10045738[2] = { 0 };
 static D2WINCONTROL *sghGameList = 0;
 static D2WINCONTROL *sghGameInfo = 0;
 static D2WINCONTROL *sghJoinBckg = 0;
@@ -108,7 +108,7 @@ static int sgnGames = 0;
 static int sgnDifficulty = 0;
 static DWORD sgdwListTick = 0;
 static DWORD sgdwLastRowTick = 0;
-static DWORD sgdw10045860 = 0;
+static DWORD PLACEHOLDER_UnreferencedData_10045860 = 0;
 
 static GATENUMBER sgszLevelDiff = "4";
 static GATENUMBER sgszMaxPlayers = "4";

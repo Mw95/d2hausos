@@ -1,0 +1,3 @@
+LIBRARY D2Glide
+EXPORTS
+    ?GlideGetInterface_1c@@YIKXZ @10000 NONAME

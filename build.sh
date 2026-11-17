@@ -3,7 +3,7 @@
 set -e
 cd "$(dirname "$0")"
 T="sh $(pwd)/tools/msvc.sh"
-mkdir -p out/D2Net out/D2Lang out/D2MCPClient out/D2Gdi out/D2DDraw out/D2sound out/D2Launch out/D2Multi
+mkdir -p out/D2Net out/D2Lang out/D2MCPClient out/D2Gdi out/D2DDraw out/D2sound out/D2Launch out/D2Multi out/D2Glide
 
 # D2Net.dll
 cd D2Net
@@ -133,6 +133,28 @@ LINK_TIME="2000-05-26 19:15:28" $T link /nologo /DLL /INCREMENTAL:YES /BASE:0x10
 cp $O/D2Multi.dll ../out/D2Multi.dll
 cd ..
 
+# D2Glide.dll
+cd D2Glide
+O=../out/D2Glide
+$T cl /nologo /c /O2 /Ob2 /Gr /Oy /Gy /Gf /MT /W3 /FI D2GlideLinkNames.h /I. /I../include /Fo$O/ \
+	D2Glide.cpp glBink.cpp glBlocks.cpp glCore.cpp glDebugFont.cpp glEngine.cpp glFloor.cpp glFloorCache.cpp \
+	glPerspective.cpp glSmack.cpp glSprite.cpp glSubtileCache.cpp glTextureCache.cpp glVertex.cpp glWall.cpp
+for m in Storm D2CMP Fog D2Sound; do
+	$T lib /nologo /def:lib/$m.def /machine:ix86 /out:$O/$m.lib >/dev/null
+done
+python3 lib/mklonglib.py glide3x.dll $O/glide3x.lib $(awk '{print $1":"$2}' lib/glide3x.exports)
+python3 lib/mklonglib.py smackw32.dll $O/smackw32.lib $(awk '{print $1":"$2}' lib/smackw32.exports)
+python3 lib/mklonglib.py --compid 0x420ff binkw32.dll $O/binkw32.lib $(awk '{print $1":"$2}' lib/binkw32.exports)
+rm -f $O/D2Glide.ilk ../out/D2Glide.dll
+LINK_TIME="2000-05-26 18:54:39" $T link /nologo /DLL /INCREMENTAL:YES /BASE:0x10000000 /MACHINE:IX86 \
+	/DEF:D2Glide.def /OUT:$O/D2Glide.dll $O/D2Glide.obj $O/glBink.obj $O/glBlocks.obj $O/glCore.obj \
+	$O/glDebugFont.obj $O/glEngine.obj $O/glFloor.obj $O/glFloorCache.obj $O/glPerspective.obj $O/glSmack.obj \
+	$O/glSprite.obj $O/glSubtileCache.obj $O/glTextureCache.obj $O/glVertex.obj $O/glWall.obj \
+	$O/Storm.lib $O/glide3x.lib $O/D2CMP.lib $O/Fog.lib kernel32.lib user32.lib gdi32.lib $O/binkw32.lib \
+	$O/smackw32.lib $O/D2Sound.lib
+cp $O/D2Glide.dll ../out/D2Glide.dll
+cd ..
+
 sha256sum -c <<EOF
 7876cc8dfe779102f1218a5c7352a6962c95e366ddd524e454332faf9554d0fc  out/D2Net.dll
 74ae0debb325048a1ae76f8360f5a826203fa3627fc02f8a62aaa3ae0d305a4b  out/D2Lang.dll
@@ -142,4 +164,5 @@ sha256sum -c <<EOF
 d403adb406b93c76c8c0d1bea131b648754fca3a8337120314bfe3e0f6e3b06c  out/D2sound.dll
 94ec7c4a04e5020aa5eaca8a0a80904393ce774af8315294a55fc6385e6a1e6c  out/D2Launch.dll
 5dccb996981f60ac2bc5fcaea4e9f033dc1c1ccb4fab9b8d608b76de9fa7fd4f  out/D2Multi.dll
+34bcf5a35fd5197dd859ab0d704460ae007d16095f7693f48d47a7db88cda381  out/D2Glide.dll
 EOF

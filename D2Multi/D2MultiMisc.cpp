@@ -2,7 +2,7 @@
 #include "D2Multi.h"
 
 static HINSTANCE sghInstance = 0;
-static DWORD sgadw10028934[3] = { 0 };
+static DWORD PLACEHOLDER_UnreferencedData_10028934[3] = { 0 };
 
 static _STDINT sgtInterface =
 {

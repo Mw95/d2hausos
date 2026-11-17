@@ -15,7 +15,7 @@ struct BINK
 static DWORD sgnBinkX = 0;
 static DWORD sgnBinkY = 0;
 static BINK *sgptBink = NULL;
-static void *sgpBinkBuffer = NULL;
+static void *PLACEHOLDER_UnreferencedData_10018a74 = NULL;
 static DWORD sgdwBinkSurfaceType = 0;
 static BOOL sgfBinkStop = FALSE;
 static BOOL sgfBinkQuit = FALSE;

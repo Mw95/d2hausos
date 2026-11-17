@@ -29,7 +29,7 @@ static CHATPROFILEVALUES sgapszProfileValues = { 0 };
 static char sgch100271f4 = 0;
 CHATREPLYNAME gszReplyName = { 0 };
 static char sgch100272f8 = 0;
-static DWORD sgadw100272fc[6] = { 0 };
+static DWORD PLACEHOLDER_UnreferencedData_100272fc[6] = { 0 };
 static BOOL sgfProfileCancel = 0;
 BNCLIENTINTERFACE *gptComInt = 0;
 static CHATSUBCHILDREN sgaptSubChildren = { 0 };
@@ -44,7 +44,7 @@ WORD gwGameInfoToken = 0;
 int gnRequest = 0;
 static int sgnNumSubChildren = 0;
 static DWORD sgdwGemActive = 0;
-static DWORD sgdw10028224 = 0;
+static DWORD PLACEHOLDER_UnreferencedData_10028224 = 0;
 static HCELFILE sghCelBnet = 0;
 static HCELFILE sghCelHand = 0;
 static HCELFILE sghCelRotate = 0;
@@ -86,17 +86,17 @@ static D2WINCONTROL *sghSubListLabel = 0;
 static D2WINCONTROL *sghSubOk = 0;
 static D2WINCONTROL *sghSubCancel = 0;
 static D2WINCONTROL *sghSubEdit = 0;
-static D2WINCONTROL *sgh100282cc = 0;
+static D2WINCONTROL *PLACEHOLDER_UnreferencedData_100282cc = 0;
 static D2WINCONTROL *sghSubList = 0;
 static D2WINCONTROL *sghLadderList = 0;
-static D2WINCONTROL *sgh100282d8 = 0;
+static D2WINCONTROL *PLACEHOLDER_UnreferencedData_100282d8 = 0;
 static D2WINCONTROL *sghLadderClassRadio = 0;
 static D2WINCONTROL *sghLadderAllRadio = 0;
 static HCELFILE sghCelCreateGameBckg = 0;
 static HCELFILE sghCelCreateGameButton = 0;
-static HCELFILE sghCel100282ec = 0;
+static HCELFILE PLACEHOLDER_UnreferencedData_100282ec = 0;
 static HCELFILE sghCelWideButton = 0;
-static HCELFILE sgahCel100282f4[4] = { 0 };
+static HCELFILE PLACEHOLDER_UnreferencedData_100282f4[4] = { 0 };
 static HCELFILE sghCelCancelBlank = 0;
 static HCELFILE sghCel10028308 = 0;
 static HCELFILE sghCelLadderChoice = 0;
@@ -131,7 +131,7 @@ static CHATPROFILEKEYS sgapszProfileKeys =
 };
 WORD gwNextToken = 1;
 static int sgnHistoryIndex = -1;
-static int sgn10022a48 = -1;
+static int PLACEHOLDER_UnreferencedData_10022a48 = -1;
 
 #define ChatStrNewTable(hArchive) \
 	(((DWORD (__fastcall *)(DWORD))D2LangStrNewTableRaw)((DWORD)(hArchive)))
@@ -353,7 +353,7 @@ D2WIN_STRUCT gatControls[NUM_CONTROLS] =
 	{ 6, 671, 433, 96, 32, VK_RETURN, 5102, &sghCelCancelBlank, (DWORD)ChatDlgOnPopupClose, 0, 0, 0 },
 };
 static int sgnLastChannelLine = -2;
-static int sgn1002460c = -1;
+static int PLACEHOLDER_UnreferencedData_1002460c = -1;
 
 #define CHAT_DATA			"DATA\\GLOBAL"
 
