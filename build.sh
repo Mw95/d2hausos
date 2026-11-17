@@ -3,7 +3,7 @@
 set -e
 cd "$(dirname "$0")"
 T="sh $(pwd)/tools/msvc.sh"
-mkdir -p out/D2Net out/D2Lang out/D2MCPClient out/D2Gdi out/D2DDraw out/D2sound out/D2Launch
+mkdir -p out/D2Net out/D2Lang out/D2MCPClient out/D2Gdi out/D2DDraw out/D2sound out/D2Launch out/D2Multi
 
 # D2Net.dll
 cd D2Net
@@ -117,6 +117,22 @@ LINK_TIME="2000-05-26 19:15:19" $T link /nologo /DLL /INCREMENTAL:YES /BASE:0x10
 cp $O/D2Launch.dll ../out/D2Launch.dll
 cd ..
 
+# D2Multi.dll
+cd D2Multi
+O=../out/D2Multi
+C="$T cl /nologo /c /O2 /Ob2 /Gr /Oy /Gy /Gf /MT /W3 /FI D2MultiLinkNames.h /I. /I../include /Fo$O/"
+$C ChatDlg.cpp ComCallback.cpp D2MultiMisc.cpp Gate.cpp
+for m in Storm D2Win D2Lang Fog D2MCPClient D2Sound; do
+	$T lib /nologo /def:lib/$m.def /machine:ix86 /out:$O/$m.lib >/dev/null
+done
+rm -f $O/D2Multi.ilk ../out/D2Multi.dll
+LINK_TIME="2000-05-26 19:15:28" $T link /nologo /DLL /INCREMENTAL:YES /BASE:0x10000000 /MACHINE:IX86 \
+	/DEF:D2Multi.def /OUT:$O/D2Multi.dll $O/ChatDlg.obj $O/ComCallback.obj $O/D2MultiMisc.obj $O/Gate.obj \
+	$O/Storm.lib $O/D2Win.lib $O/D2Lang.lib $O/Fog.lib $O/D2MCPClient.lib kernel32.lib user32.lib advapi32.lib \
+	$O/D2Sound.lib
+cp $O/D2Multi.dll ../out/D2Multi.dll
+cd ..
+
 sha256sum -c <<EOF
 7876cc8dfe779102f1218a5c7352a6962c95e366ddd524e454332faf9554d0fc  out/D2Net.dll
 74ae0debb325048a1ae76f8360f5a826203fa3627fc02f8a62aaa3ae0d305a4b  out/D2Lang.dll
@@ -125,4 +141,5 @@ sha256sum -c <<EOF
 2650e8a49d6a8c09fe1f3c3425873e94a9b3125ea95de98ba447e025940d9cbb  out/D2DDraw.dll
 d403adb406b93c76c8c0d1bea131b648754fca3a8337120314bfe3e0f6e3b06c  out/D2sound.dll
 94ec7c4a04e5020aa5eaca8a0a80904393ce774af8315294a55fc6385e6a1e6c  out/D2Launch.dll
+5dccb996981f60ac2bc5fcaea4e9f033dc1c1ccb4fab9b8d608b76de9fa7fd4f  out/D2Multi.dll
 EOF

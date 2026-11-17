@@ -1,0 +1,3 @@
+LIBRARY D2Multi
+EXPORTS
+    QueryInterface=?QueryInterface_ovtl@@YAPAU_STDINT@@XZ @1
