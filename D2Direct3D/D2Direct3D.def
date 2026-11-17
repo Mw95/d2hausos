@@ -1,0 +1,3 @@
+LIBRARY D2Direct3D
+EXPORTS
+    ?D3DGetInterface_ug3@@YIKXZ @10000 NONAME
