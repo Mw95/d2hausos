@@ -1,0 +1,3 @@
+LIBRARY D2Launch
+EXPORTS
+    QueryInterface=?QueryInterface_gsye@@YAPAU_STDINT@@XZ @1

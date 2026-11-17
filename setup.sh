@@ -47,7 +47,7 @@ with open(sys.argv[1], "rb") as i, open(sys.argv[2], "wb") as o:
     while s := i.read(2448):
         o.write(s[16:2064])' "$W"/*.mdf "$W/vs6.iso"
 rm -f "$W"/*.mdf
-7z x -y -bd -o"$W/vs6" "$W/vs6.iso" VC98/BIN/CL.EXE VC98/BIN/C1XX.DLL VC98/BIN/C2.DLL VC98/BIN/LIB.EXE \
+7z x -y -bd -o"$W/vs6" "$W/vs6.iso" VC98/BIN/CL.EXE VC98/BIN/C1.DLL VC98/BIN/C1XX.DLL VC98/BIN/C2.DLL VC98/BIN/LIB.EXE \
 	VC98/BIN/LINK.EXE COMMON/MSDEV98/BIN/MSPDB60.DLL 'VC98/INCLUDE/*' 'VC98/LIB/*' >/dev/null
 rm -f "$W/vs6.iso"
 mkdir -p "$TC/bin" "$TC/linkbin"
@@ -83,6 +83,10 @@ cp "$W"/sdk/AdvAPI32_Lib.* "$TC/sdklib/advapi32.lib"
 cp "$W"/sdk/WSock32_Lib.* "$TC/sdklib/wsock32.lib"
 cp "$W"/sdk/User32_Lib.* "$TC/sdklib/user32.lib"
 cp "$W"/sdk/Gdi32_Lib.* "$TC/sdklib/gdi32.lib"
+cp "$W"/sdk/Version_Lib.* "$TC/sdklib/version.lib"
+cp "$W"/sdk/ddraw_Lib.* "$TC/sdklib/ddraw.lib"
+cp "$W"/sdk/dsound_Lib.* "$TC/sdklib/dsound.lib"
+cp "$W"/sdk/dxguid_Lib.* "$TC/sdklib/dxguid.lib"
 cp "$TC"/bin/LINK.EXE "$TC"/bin/MSPDB60.DLL "$TC/linkbin/"
 cp "$W"/sdk/Msvcrt_Dll.* "$TC/linkbin/msvcrt.dll"
 echo "$MSVCRT_SHA  $TC/linkbin/msvcrt.dll" | sha256sum -c --quiet

@@ -1,0 +1,63 @@
+#ifndef D2RE_D2DDRAW_LINKNAMES_H
+#define D2RE_D2DDRAW_LINKNAMES_H
+
+#define DdFillSquare DdFillSquare_r09f
+#define DdSmackOpen DdSmackOpen_s6
+#define DdSpriteDrawWallLow DdSpriteDrawWallLow_iee
+#define DdDrawCelSkip DdDrawCelSkip_ws5k
+#define DdNothingSetUnreadDword DdNothingSetUnreadDword_8
+#define DdReinit DdReinit_6
+#define DDrawPlayBinkFile DDrawPlayBinkFile_m71
+#define DdGetInterface DdGetInterface_5
+#define DdCloseWindowAndPalette DdCloseWindowAndPalette_1q
+#define DdInit DdInit_21
+#define DdSmackClose DdSmackClose_sb
+#define DdIsCutscene DdIsCutscene_tze
+#define DdSpriteDrawShadow DdSpriteDrawShadow_sy
+#define DdDrawCelPreMap DdDrawCelPreMap_bm
+#define DdFillRect DdFillRect_8x7t
+#define DdNothingFlushCaches DdNothingFlushCaches_r0i
+#define DdSpriteDrawUnitBlocks DdSpriteDrawUnitBlocks_k
+#define DdSpriteWarp DdSpriteWarp_8p
+#define DdGetFrameOpenQuery DdGetFrameOpenQuery_63
+#define DdUnlockRender DdUnlockRender_nlz
+#define DdDrawFrame DdDrawFrame_m2
+#define DdOpenCutscene DdOpenCutscene_0jyn
+#define DdSetPaletteEntries DdSetPaletteEntries_86l
+#define DdDetectBoards DdDetectBoards_egu
+#define DdTeardown DdTeardown_hj4
+#define DdSmackInit DdSmackInit_d
+#define DdNothingSetVertexColor DdNothingSetVertexColor_iqy
+#define DdPlayCutscene DdPlayCutscene_k3l
+#define DdDrawLine DdDrawLine_tfnq
+#define DdGetMemoryBudget DdGetMemoryBudget_gymw
+#define DdDrawDiamond DdDrawDiamond_wy
+#define DdNothingSetPerspOrigin DdNothingSetPerspOrigin_8i
+#define DdExpandToRgb DdExpandToRgb_ukf7
+#define DdGetEnvValue DdGetEnvValue_mc8k
+#define DdLockRender DdLockRender_tv
+#define DdClearRender DdClearRender_im0
+#define DdNothingPerspProject DdNothingPerspProject_4
+#define DdNothingResetPerspDepth DdNothingResetPerspDepth_twkh
+#define DdSetSuspended DdSetSuspended_ekr
+#define DdHasGamma DdHasGamma_r
+#define DdDrawDebugText DdDrawDebugText_wnu
+#define DdSpriteDrawRows DdSpriteDrawRows_hk
+#define DdSpriteStub DdSpriteStub_5i1a
+#define DdCreateDebugFont DdCreateDebugFont_w
+#define DdSetEnvInfo DdSetEnvInfo_1
+#define DdDrawCel DdDrawCel_c
+#define DdSetup DdSetup_zcws
+#define DdAlwaysFalse DdAlwaysFalse_wuxj
+#define DdGetDrawCtxFlag DdGetDrawCtxFlag_62g
+#define DdFillSpan DdFillSpan_q
+#define DdPresent DdPresent_moh
+#define DdSpriteDrawWallShaded DdSpriteDrawWallShaded_z
+#define DdGetScreenSize DdGetScreenSize_apha
+#define DdSetGamma DdSetGamma_spps
+#define DdLogError DdLogError_hf61
+#define DdSmackUpdate DdSmackUpdate_ssw
+#define DdNothingPerspProjectDepth DdNothingPerspProjectDepth_k
+
+#define DdDrawTile DdDrawTile_g
+#endif

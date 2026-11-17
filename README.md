@@ -9,6 +9,9 @@ here once its build matches the original; the modules so far:
 | `D2Lang.dll` | 110,592 | `74ae0debb325048a1ae76f8360f5a826203fa3627fc02f8a62aaa3ae0d305a4b` |
 | `D2MCPClient.dll` | 53,248 | `2dba706661c163302c3900b1a640b6136f8954d6d3fc735d6882fc1331bfc523` |
 | `D2Gdi.dll` | 57,344 | `84511be68e9f25c805ea755c1444544338d093a0348ccfa30d2dd8ce9ab907a8` |
+| `D2DDraw.dll` | 118,784 | `2650e8a49d6a8c09fe1f3c3425873e94a9b3125ea95de98ba447e025940d9cbb` |
+| `D2sound.dll` | 143,360 | `d403adb406b93c76c8c0d1bea131b648754fca3a8337120314bfe3e0f6e3b06c` |
+| `D2Launch.dll` | 212,992 | `94ec7c4a04e5020aa5eaca8a0a80904393ce774af8315294a55fc6385e6a1e6c` |
 
 ## Requirements
 
@@ -44,7 +47,7 @@ Item pages: <https://archive.org/details/X04-62912>,
 
 | path | what |
 |---|---|
-| `D2Net/`, `D2Lang/`, `D2MCPClient/`, `D2Gdi/` | one directory per module: the source, export `.def` files, and `lib/*.def` for the import libraries of the game DLLs it calls (D2Gdi also has `lib/mklonglib.py` and `lib/smackw32.exports`, which write its old-format smackw32.lib) |
+| `D2Net/`, `D2Lang/`, `D2MCPClient/`, `D2Gdi/`, `D2DDraw/`, `D2sound/`, `D2Launch/` | one directory per module: the source, export `.def` files, and `lib/*.def` for the import libraries of the game DLLs it calls (D2Gdi and D2DDraw also have `lib/mklonglib.py` and `lib/*.exports`, which write their old-format smackw32.lib and binkw32.lib; D2Launch has `lib/D2WinSyms.c`, the symbols its D2Win.lib is built from) |
 | `include/` | headers shared by the modules |
 | `setup.sh` | makes `toolchain/` from the downloads |
 | `build.sh` | compiles and links every module |

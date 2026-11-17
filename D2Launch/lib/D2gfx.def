@@ -1,0 +1,6 @@
+LIBRARY D2gfx
+EXPORTS
+    D2gfxOrdinal10033@12 @10033 NONAME
+    D2GfxCutsceneCloseWindow DATA
+    D2GfxCutsceneCreateWindow DATA
+    D2GfxNukeCaches DATA
