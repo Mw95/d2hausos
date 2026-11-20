@@ -1,6 +1,7 @@
 # Diablo II Hausos
 
-Source code of Diablo II 1.00 that builds to modules byte-for-byte identical to the originals. A module is added
+Decompiled source code of Diablo II 1.00, reconstructed from the original binaries, that builds to modules
+byte-for-byte identical to the originals. A module is added
 here once its build matches the original; the modules so far:
 
 | file | size | sha256 |

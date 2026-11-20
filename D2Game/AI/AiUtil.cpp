@@ -2,8 +2,11 @@
 #include "../D2game.h"
 #include "D2Macros.h"
 #include "../GAME/Clients.h"
+#include "../GAME/Event.h"
 #include "../GAME/Targets.h"
 #include "../MONSTER/MonsterAI.h"
+#include "../MONSTER/MonsterUnique.h"
+#include "../SKILLS/Skills.h"
 #include "../UNIT/SUnit.h"
 #include "AiGeneral.h"
 #include "AiUtil.h"
@@ -13,6 +16,8 @@
 #define UNIT_OBJECT				2
 #define UNIT_MISSILE			3
 #define MONDATA(hUnit)	((MONSTERDATA *)(hUnit)->uTypeData)
+#define EVENT_RUN_AI			2
+#define AISCARE_SKILL			77
 #define AIFIND_NONE				2147483647
 #define AIFIND_KINDS			13
 #define AITARGET_PLAYER_LISTS	8
@@ -1041,4 +1046,114 @@ void __fastcall AiRecordSetFlags(AIRECORDHEAD *ptRecord, WORD wMask,
 		ptRecord->wFlags |= wMask;
 	else
 		ptRecord->wFlags &= ~wMask;
+}
+
+void __fastcall AiSetMonTeleportFlag(UNIT *hUnit, BOOL bSet)
+{
+	AIGENERAL *ptAi;
+
+	ptAi = MONDATA(hUnit)->ptAi;
+	if (bSet)
+		ptAi->wFlags |= AIFLAG_20;
+	else
+		ptAi->wFlags &= ~AIFLAG_20;
+}
+
+int __fastcall MonsterGetLifePercent(UNIT *hUnit)
+{
+	int nLife;
+	int nMaxLife;
+
+	nLife = D2CommonStatsUnitGetValue(hUnit, 6);
+	nMaxLife = D2CommonStatsUnitCalcMaxHp(hUnit);
+	if (nMaxLife)
+		return nLife * 100 / nMaxLife;
+	return 0;
+}
+
+BOOL __fastcall UnitLineClear(UNIT *hUnit, UNIT *hTarget)
+{
+	return D2CommonUnitTestLineBlocked(hUnit, hTarget, 4) == 0;
+}
+
+BOOL __fastcall MonsterTestPrevModeGetHit(UNIT *hUnit)
+{
+	int nKind;
+
+	nKind = AiGetKind((AIRECORDHEAD *)MONDATA(hUnit)->pRegionRef);
+	if (nKind == 3 || nKind == 19)
+		return TRUE;
+	return FALSE;
+}
+
+void __fastcall AiSetUnitRef(UNIT *hUnit, UNIT *hRef)
+{
+	AIGENERAL *ptAi;
+
+	if (hUnit->eType != UNIT_MONSTER)
+		return;
+	ptAi = MONDATA(hUnit)->ptAi;
+	if (hRef)
+	{
+		ptAi->dwRefUnitId = hRef->dwId;
+		ptAi->dwRefUnitType = hRef->eType;
+		return;
+	}
+	ptAi->dwRefUnitId = (DWORD)-1;
+	ptAi->dwRefUnitType = UNIT_MONSTER;
+}
+
+void __fastcall MonsterScare(GAME *ptGame, UNIT *hUnit, UNIT *hTarget, DWORD dwUnused,
+	int nLength)
+{
+	SKILLSTATE tState;
+	int i;
+
+	if (SUnitIsDead(hTarget))
+		return;
+	if (!MonsterCanBeAffected(hTarget, 11))
+		return;
+	for (i = 0; i < (int)(sizeof(SKILLSTATE) / sizeof(DWORD)); i++)
+		((DWORD *)&tState)[i] = 0;
+	tState.hSource = hUnit;
+	tState.hTarget = hTarget;
+	tState.nSkill = AISCARE_SKILL;
+	tState.nLevel = 1;
+	tState.nDuration = nLength;
+	tState.dwStatId = (DWORD)-1;
+	tState.dwState = 56;
+	SkillsSetState(&tState);
+	D2CommonUnitSetTarget(hTarget, hUnit);
+	AiThinkSet(ptGame, hTarget, MONDATA(hTarget)->ptAi, 11);
+	EventRemoveByType(ptGame, hTarget, EVENT_RUN_AI);
+	EventAdd(ptGame, hTarget, EVENT_RUN_AI, ptGame->nFrame + 1);
+}
+
+BOOL __fastcall MonsterCanBeAffected(UNIT *hUnit, int nKind)
+{
+	struct MONSTERUNIQUE *ptUnique;
+	MONSTATSTXT *ptStats;
+
+	if (!hUnit)
+		return FALSE;
+	if (hUnit->eType != UNIT_MONSTER)
+		return FALSE;
+	if (nKind > 15)
+		return FALSE;
+	if (D2CommonStatsGetState(hUnit, 54))
+		return FALSE;
+	if (!D2CommonUnitTestMonsterCombinedFlag(hUnit->dwClassId))
+		return FALSE;
+	ptUnique = MONDATA(hUnit)->ptUnique;
+	if (MonsterUniqueIsCounted(ptUnique))
+		return FALSE;
+	if (MonsterUniqueIsSuperUnique(ptUnique))
+		return FALSE;
+	if (nKind != 15)
+	{
+		ptStats = (MONSTATSTXT *)D2CommonMonsterTblsGetStats(hUnit->dwClassId);
+		if (!AiThinkKindApplies(hUnit, ptStats, nKind, TRUE))
+			return FALSE;
+	}
+	return TRUE;
 }
