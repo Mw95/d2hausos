@@ -1,0 +1,12 @@
+#undef D2_THIS_FILE
+#include "a1q1.cpp"
+#undef D2_THIS_FILE
+#include "a1q2.cpp"
+#undef D2_THIS_FILE
+#include "a1q3.cpp"
+#undef D2_THIS_FILE
+#include "a1q4.cpp"
+#undef D2_THIS_FILE
+#include "a1q5.cpp"
+#undef D2_THIS_FILE
+#include "a1q6.cpp"

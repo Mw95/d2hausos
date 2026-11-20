@@ -87,6 +87,7 @@ cp "$W"/sdk/Version_Lib.* "$TC/sdklib/version.lib"
 cp "$W"/sdk/ddraw_Lib.* "$TC/sdklib/ddraw.lib"
 cp "$W"/sdk/dsound_Lib.* "$TC/sdklib/dsound.lib"
 cp "$W"/sdk/dxguid_Lib.* "$TC/sdklib/dxguid.lib"
+cp "$W"/sdk/WinMM_Lib.* "$TC/sdklib/winmm.lib"
 cp "$TC"/bin/LINK.EXE "$TC"/bin/MSPDB60.DLL "$TC/linkbin/"
 cp "$W"/sdk/Msvcrt_Dll.* "$TC/linkbin/msvcrt.dll"
 echo "$MSVCRT_SHA  $TC/linkbin/msvcrt.dll" | sha256sum -c --quiet

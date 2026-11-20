@@ -1,0 +1,16 @@
+#undef D2_THIS_FILE
+#include "a3q0.cpp"
+#undef D2_THIS_FILE
+#include "a3q1.cpp"
+#undef D2_THIS_FILE
+#include "a3q2.cpp"
+#undef D2_THIS_FILE
+#include "a3q3.cpp"
+#undef D2_THIS_FILE
+#include "a3q4.cpp"
+#undef D2_THIS_FILE
+#include "a3q5.cpp"
+#undef D2_THIS_FILE
+#include "a3q6.cpp"
+#undef D2_THIS_FILE
+#include "a3q7.cpp"

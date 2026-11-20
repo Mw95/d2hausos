@@ -1,0 +1,13 @@
+LIBRARY Storm
+EXPORTS
+    StormOrdinal403@16 @403 NONAME
+    StormOrdinal401@16 @401 NONAME
+    StormOrdinal501@12 @501 NONAME
+    StormOrdinal491@12 @491 NONAME
+    StormOrdinal425@16 @425 NONAME
+    StormOrdinal422@20 @422 NONAME
+    StormOrdinal423@16 @423 NONAME
+    StormOrdinal508@12 @508 NONAME
+    StormOrdinal405@20 @405 NONAME
+    StormOrdinal509@12 @509 NONAME
+    StormOrdinal506@4 @506 NONAME

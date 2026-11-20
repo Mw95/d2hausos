@@ -3,7 +3,7 @@
 set -e
 cd "$(dirname "$0")"
 T="sh $(pwd)/tools/msvc.sh"
-mkdir -p out/D2Net out/D2Lang out/D2MCPClient out/D2Gdi out/D2DDraw out/D2sound out/D2Launch out/D2Multi out/D2Glide out/D2Direct3D
+mkdir -p out/D2Net out/D2Lang out/D2MCPClient out/D2Gdi out/D2DDraw out/D2sound out/D2Launch out/D2Multi out/D2Glide out/D2Direct3D out/D2Game
 
 # D2Net.dll
 cd D2Net
@@ -178,6 +178,48 @@ LINK_TIME="2000-05-26 18:54:11" $T link /nologo /DLL /INCREMENTAL:YES /BASE:0x10
 cp $O/D2Direct3D.dll ../out/D2Direct3D.dll
 cd ..
 
+# D2Game.dll
+cd D2Game
+O=../out/D2Game
+C="$T cl /nologo /c /Ox /Gr /Oy /Gf /MT /W3 /I. /Iinc /Fo$O/"
+$C /Ob2 GAME/DllMain.cpp GAME/Arena.cpp GAME/CCmd.cpp GAME/Clients.cpp GAME/Event.cpp GAME/Level.cpp GAME/SCmd.cpp \
+	GAME/Targets.cpp INVENTORY/InvMode.cpp ITEMS/ItemMode.cpp ITEMS/Items.cpp MISSILES/Missiles.cpp \
+	MISSILES/MissMode.cpp MONSTER/Monster.cpp MONSTER/MonsterAI.cpp MONSTER/MonsterEval.cpp MONSTER/MonsterMode.cpp \
+	MONSTER/MonsterMsg.cpp OBJECTS/Objects.cpp OBJECTS/OBJEVAL.cpp OBJECTS/ObjMode.cpp OBJECTS/objrgn.cpp \
+	PLAYER/PartyScreen.cpp PLAYER/Player.cpp PLAYER/PlayerPets.cpp PLAYER/PlrEval.cpp PLAYER/PlrIntro.cpp \
+	PLAYER/PlrModes.cpp PLAYER/PlrMsg.cpp PLAYER/PlrSave.cpp PLAYER/PlrTrade.cpp QUESTS/QUESTS.cpp QUESTS/act1.cpp \
+	QUESTS/act2.cpp QUESTS/act3.cpp QUESTS/act4.cpp UNIT/Friendly.cpp UNIT/Party.cpp UNIT/PlayerList.cpp \
+	UNIT/SUnit.cpp UNIT/SUnitDmg.cpp UNIT/SUnitInactive.cpp UNIT/SUnitMsg.cpp UNIT/SUNITNPC.cpp UNIT/sunitproxy.cpp \
+	DEBUG/Debug.cpp AI/AiGeneral.cpp AI/AiTatics.cpp AI/AiThink.cpp AI/AiUtil.cpp GUILDS/Guilds.cpp \
+	SKILLS/SkillAma.cpp SKILLS/SkillBar.cpp SKILLS/SkillItem.cpp SKILLS/SkillMonst.cpp SKILLS/SkillNec.cpp \
+	SKILLS/Skills.cpp SKILLS/SkillSor.cpp SKILLS/SkilPal.cpp STANDIN/Empty01.cpp STANDIN/Empty02.cpp \
+	STANDIN/Empty03.cpp STANDIN/Empty04.cpp STANDIN/Empty05.cpp STANDIN/Empty06.cpp STANDIN/Empty07.cpp \
+	STANDIN/Empty08.cpp STANDIN/Empty09.cpp STANDIN/Empty10.cpp
+$C /Ob2 /GX GAME/Game.cpp GAME/GameTable.cpp GAME/Task.cpp
+$C /Ob1 MONSTER/MonsterSpawn.cpp MONSTER/MonsterUnique.cpp
+for m in D2CMP D2Net D2Common D2Lang Fog Storm; do
+	$T lib /nologo /def:lib/$m.def /machine:ix86 /out:$O/$m.lib >/dev/null
+done
+rm -f $O/D2Game.dll ../out/D2Game.dll
+LINK_TIME="2000-05-26 19:01:13" $T link /nologo /DLL /INCREMENTAL:NO /OPT:REF,ICF /BASE:0x10000000 /MACHINE:IX86 \
+	/DEF:D2Game.def /OUT:$O/D2Game.dll $O/DllMain.obj $O/Arena.obj $O/CCmd.obj $O/Clients.obj $O/Event.obj \
+	$O/Game.obj $O/GameTable.obj $O/Level.obj $O/SCmd.obj $O/Targets.obj $O/Task.obj $O/InvMode.obj \
+	$O/ItemMode.obj $O/Items.obj $O/Missiles.obj $O/MissMode.obj $O/Monster.obj $O/MonsterAI.obj \
+	$O/MonsterEval.obj $O/MonsterMode.obj $O/MonsterMsg.obj $O/MonsterSpawn.obj $O/MonsterUnique.obj \
+	$O/Objects.obj $O/OBJEVAL.obj $O/ObjMode.obj $O/objrgn.obj $O/PartyScreen.obj $O/Player.obj \
+	$O/PlayerPets.obj $O/PlrEval.obj $O/PlrIntro.obj $O/PlrModes.obj $O/PlrMsg.obj $O/PlrSave.obj \
+	$O/PlrTrade.obj $O/QUESTS.obj $O/act1.obj $O/act2.obj $O/act3.obj $O/act4.obj $O/Friendly.obj \
+	$O/Party.obj $O/PlayerList.obj $O/SUnit.obj $O/SUnitDmg.obj $O/SUnitInactive.obj $O/SUnitMsg.obj \
+	$O/SUNITNPC.obj $O/sunitproxy.obj $O/Debug.obj $O/AiGeneral.obj $O/AiTatics.obj $O/AiThink.obj \
+	$O/AiUtil.obj $O/Guilds.obj $O/SkillAma.obj $O/SkillBar.obj $O/SkillItem.obj $O/SkillMonst.obj \
+	$O/SkillNec.obj $O/Skills.obj $O/SkillSor.obj $O/SkilPal.obj $O/Empty01.obj $O/Empty02.obj \
+	$O/Empty03.obj $O/Empty04.obj $O/Empty05.obj $O/Empty06.obj $O/Empty07.obj $O/Empty08.obj \
+	$O/Empty09.obj $O/Empty10.obj \
+	$O/D2CMP.lib $O/D2Net.lib $O/D2Common.lib $O/D2Lang.lib $O/Fog.lib kernel32.lib user32.lib $O/Storm.lib \
+	winmm.lib
+cp $O/D2Game.dll ../out/D2Game.dll
+cd ..
+
 sha256sum -c <<EOF
 7876cc8dfe779102f1218a5c7352a6962c95e366ddd524e454332faf9554d0fc  out/D2Net.dll
 74ae0debb325048a1ae76f8360f5a826203fa3627fc02f8a62aaa3ae0d305a4b  out/D2Lang.dll
@@ -189,4 +231,5 @@ d403adb406b93c76c8c0d1bea131b648754fca3a8337120314bfe3e0f6e3b06c  out/D2sound.dl
 5dccb996981f60ac2bc5fcaea4e9f033dc1c1ccb4fab9b8d608b76de9fa7fd4f  out/D2Multi.dll
 34bcf5a35fd5197dd859ab0d704460ae007d16095f7693f48d47a7db88cda381  out/D2Glide.dll
 1a070bb5c8ee4d159a333a1abd0cad5608ede2fa12cdd70e14e3e1b1e96291b1  out/D2Direct3D.dll
+695024b9f2c9f0e9446a1b224d823d4a8d5f9424b6cc314953f01a5a34eaebc4  out/D2Game.dll
 EOF
